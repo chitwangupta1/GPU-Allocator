@@ -1,6 +1,7 @@
 Flask
-PyPDF2
 python-dotenv
+pandas
+openpyxl
 
 # CrewAI
 crewai[google-genai]
