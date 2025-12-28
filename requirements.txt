@@ -2,6 +2,7 @@ Flask
 python-dotenv
 pandas
 openpyxl
+flask-cors
 
 # CrewAI
 crewai[google-genai]
