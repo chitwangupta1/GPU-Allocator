@@ -660,28 +660,35 @@ def health():
             'configured': False
         }), 500
 
-if __name__ == '__main__':
-    print("\n" + "="*60)
+if __name__ == "__main__":
+    print("\n" + "=" * 60)
     print("GPU Compute Marketplace - Powered by Google Gemini")
-    print("="*60)
-    
-    # Check if API key is set (without exposing it)
-    if os.getenv('GOOGLE_API_KEY'):
+    print("=" * 60)
+
+    # Detect if running under Gunicorn
+    running_under_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "") \
+        or "gunicorn" in sys.argv[0].lower()
+
+    # Check API key
+    if os.getenv("GOOGLE_API_KEY"):
         print("✓ Gemini API Key configured")
         print("✓ Using model: gemini-1.5-flash-002 (stable, better rate limits)")
     else:
         print("✗ WARNING: GOOGLE_API_KEY not found!")
-        print("  Please set your Gemini API key in .env file")
-    
+        print("  Set it in Render → Environment Variables")
+
     # Check Excel file
     if os.path.exists(EXCEL_FILE):
         print(f"✓ Excel database found: {EXCEL_FILE}")
     else:
         print(f"✓ Creating new Excel database: {EXCEL_FILE}")
-    
-    print("\nStarting server on http://localhost:5000")
-    print("="*60 + "\n")
-    
 
-    # app.run(debug=True, host='0.0.0.0', port=5000)
-    app.run()
+    # Only show localhost message + run dev server locally
+    if not running_under_gunicorn:
+        print("\nStarting LOCAL development server at http://localhost:5000")
+        print("=" * 60 + "\n")
+        app.run(host="0.0.0.0", port=5000, debug=True)
+    else:
+        print("\nRunning under Gunicorn (production mode)")
+        print("Server binding handled by Gunicorn")
+        print("=" * 60 + "\n")
