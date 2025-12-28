@@ -576,8 +576,10 @@ class GPUMarketplaceCrew:
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 
+
+
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 marketplace = GPUMarketplaceCrew()
 
@@ -692,3 +694,4 @@ if __name__ == "__main__":
         print("\nRunning under Gunicorn (production mode)")
         print("Server binding handled by Gunicorn")
         print("=" * 60 + "\n")
+
