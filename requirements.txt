@@ -1,1 +1,15 @@
-3.10.10
+Flask
+PyPDF2
+python-dotenv
+
+# CrewAI
+crewai[google-genai]
+crewai
+crewai-tools
+
+# Google Gemini API
+google-generativeai
+
+# Required dependencies
+pydantic
+httpx
