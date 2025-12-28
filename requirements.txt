@@ -15,3 +15,4 @@ google-generativeai
 # Required dependencies
 pydantic
 httpx
+gunicorn
